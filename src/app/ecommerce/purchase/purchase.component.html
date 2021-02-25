@@ -1,0 +1,56 @@
+
+<div class="layout-content-body">
+    <div id="step-1" class="tab-pane active">
+        <h4>Your purchased products</h4>
+        <div class="cart">
+            <ul class="cart-list">
+                <li class="cart-list-item" *ngFor="let obj of products">
+                  <div class="cart-list-image">
+                    <a>
+                      <img class="cart-list-thumbnail" src="assets/img/{{obj.image}}" alt="image">
+                    </a>
+                  </div>
+                  <div class="cart-list-details">
+                    <h4 class="cart-list-name">
+                      <a>{{obj.name}}</a>
+                    </h4>
+                    <p class="cart-list-description">
+                      <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque quo nulla ad id natus ratione, voluptatum, perspiciatis consequuntur, ea aliquid rem.</small>
+                    </p>
+                    <div class="cart-list-actions">
+                      <ul class="list-inline">
+                        <!-- <li><a href="#">Delete</a></li> -->
+                        <li>
+                          <span aria-hidden="true">|</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="cart-list-price">
+                    <ul class="list-inline">
+                      <li>
+                        <del>${{obj.discount}}</del>
+                      </li>
+                      <li>
+                        <strong>${{obj.price}}</strong>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="cart-list-quantity">
+                    <input class="form-control" disabled type="text" value="1">
+                  </div>
+                  <div class="cart-list-subtotal">${{obj.price}}</div>
+                </li>
+              </ul>
+          <div class="cart-subtotal">
+            Subtotal:
+            <span class="cart-subtotal-amount">${{totalprice}}.00</span>
+          </div>
+          <div class="cart-actions">
+            <button class="btn btn-default"  routerLink="home" >Continue shopping</button>
+            <!-- <button class="btn btn-default"  style="margin-left: 1em;" routerLink="../purchase" >Purchase</button> -->
+          </div>
+        </div>
+      </div>
+
+</div>

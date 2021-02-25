@@ -1,0 +1,188 @@
+<div class="navbar navbar-default" style="background-color: orange;">
+  <div class="container-fluid">
+    <div class="">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">
+        <b style="color: white;"> Company Logo</b>
+      </a>
+    </div>
+    <nav id="navbar" class="navbar-collapse collapse" style="color: white;">
+      <ul class="nav navbar-nav navbar-right">
+      <span></span>
+      <li class="dropdown" *ngIf="appservice.isLoggedIn()">
+        <a class="dropdown-toggle" (click)="openModal('createModal')" role="button" data-toggle="dropdown" aria-haspopup="true">
+          <span class="icon-with-child hidden-xs">
+            <span class="icon icon-cart-plus icon-lg" style="color: white;"></span>
+            <span class="badge badge-warning  badge-above right">{{count}}</span>
+          </span>
+          <span class="visible-xs-block">
+            <span class="icon icon-cart-plus icon-lg icon-fw"></span>
+            <span class="badge badge-warning  pull-right">10</span>
+            Notifications
+          </span>
+        </a>
+      </li>
+      <li class="dropdown" *ngIf="!appservice.isLoggedIn()">
+        <a class="dropdown-toggle" (click)="openModal('createModal')" role="button" data-toggle="dropdown" aria-haspopup="true">
+          <span class="icon-with-child hidden-xs">
+            <span class="icon icon-user icon-lg" style="color: white;"></span>
+            <!-- <span class="badge badge-warning  badge-above right">{{count}}</span> -->
+          </span>
+          <!-- <span class="visible-xs-block">
+            <span class="icon icon-cart-plus icon-lg icon-fw"></span>
+            <span class="badge badge-warning  pull-right">10</span>
+            Notifications
+          </span> -->
+        </a>
+      </li>
+        <!-- <li>
+          <div class="navbar-btn-group">
+            <a class="navbar-btn btn btn-default btn-block">Sign up</a>
+          </div>
+        </li> -->
+      </ul>
+    </nav>
+  </div>
+</div>
+<router-outlet></router-outlet>
+
+<jw-modal id="createModal" >
+  <div class="modal-dialog" style="background-color: transparent;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="closeModal('createModal')"><span aria-hidden="true">×</span><span
+            class="sr-only">Close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="demo-form-wrapper">
+          <div>
+            <ul class="steps">
+              <li class="step col-xs-6 active">
+                <a class="step-segment" href="#tab-1" data-toggle="tab" aria-expanded="true">
+                  <span class="step-icon icon icon-user-plus"></span>
+                </a>
+                <div class="step-content">
+                  <h5 class="hidden-xs" translate>Sign In</h5>
+                </div>
+              </li>
+              <li class="step col-xs-6">
+                <a class="step-segment" href="#tab-2" data-toggle="tab" aria-expanded="false">
+                  <span class="step-icon icon icon-user"></span>
+                </a>
+                <div class="step-content">
+                  <h5 class="hidden-xs" translate>Sign Up</h5>
+                </div>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <div class="row">
+                  <form class="form-wizard" #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+                    <div class="tab-content">
+                      <div id="step-3" class="tab-pane active">
+                        <div class="row">
+                          <div class="col-sm-8 col-sm-offset-2">
+                            <label *ngIf="error" class="validation-message">User does not exist</label>
+                            <label *ngIf="incorrect" class="validation-message">Incorrect Credentials</label>
+                            <br>
+                            <div class="form-group">
+                              <label for="creditcard-type" class="control-label">Email Address</label>
+                              <input id="creditcard-number" class="form-control" type="text" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email" [pattern]="emailRegex" required
+                              [ngClass]="{'invalid-textbox' :signInForm.submitted && !email.valid }">
+                              <div *ngIf="signInForm.submitted && email.errors?.pattern">
+                                <label class="validation-message">Invalid email address.</label>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="creditcard-number" class="control-label">Password</label>
+                              <input id="creditcard-number" class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required minlength="4"
+                              [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+                            </div>
+                            <div *ngIf="signInForm.submitted && password.errors?.minlength">
+                              <label class="validation-message">Minimum 4 characters.</label>
+                            </div>
+                            <div class="form-group">
+                              <div class="row gutter-xs">
+                                <div class="col-xs-6">
+                                </div>
+                                <div class="col-xs-5 col-xs-offset-1">
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="form-group">
+                              <label for="coupon-code" class="control-label">Coupon code</label>
+                              <input id="coupon-code" class="form-control" type="text" name="coupon_code">
+                            </div> -->
+                            <div class="form-group">
+                              <p>
+                                <small>By clicking Login, you agree to our <a >Terms</a> and that you have read our <a >Data Policy</a>, including our <a >Cookie Use</a>.</small>
+                              </p>
+                              <button class="btn btn-primary btn-block" type="submit">Login</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div id="tab-2" class="tab-pane">
+                <div class="row">
+                  <form class="form-wizard" #signInForm="ngForm" (ngSubmit)="signInForm.valid && register(signInForm)">
+                    <div class="tab-content">
+                      <div id="step-3" class="tab-pane active">
+                        <div class="row">
+                          <div class="col-sm-8 col-sm-offset-2">
+                            <div class="form-group">
+                              <label for="creditcard-type" class="control-label">Email Address</label>
+                              <input id="creditcard-number" class="form-control" type="text" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email" [pattern]="emailRegex" required
+                              [ngClass]="{'invalid-textbox' :signInForm.submitted && !email.valid }">
+                              <div *ngIf="signInForm.submitted && email.errors?.pattern">
+                                <label class="validation-message">Invalid email address.</label>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="creditcard-number" class="control-label">Password</label>
+                              <input id="creditcard-number" class="form-control" type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Password" required minlength="4"
+                              [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+                            </div>
+                            <div *ngIf="signInForm.submitted && password.errors?.minlength">
+                              <label class="validation-message">Minimum 4 characters.</label>
+                            </div>
+                            <div class="form-group">
+                              <div class="row gutter-xs">
+                                <div class="col-xs-6">
+                                </div>
+                                <div class="col-xs-5 col-xs-offset-1">
+                                </div>
+                              </div>
+                            </div>
+                            <!-- <div class="form-group">
+                              <label for="coupon-code" class="control-label">Coupon code</label>
+                              <input id="coupon-code" class="form-control" type="text" name="coupon_code">
+                            </div> -->
+                            <div class="form-group">
+                              <p>
+                                <small>By clicking Register, you agree to our <a >Terms</a> and that you have read our <a >Data Policy</a>, including our <a >Cookie Use</a>.</small>
+                              </p>
+                              <button class="btn btn-primary btn-block" type="submit">Register</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</jw-modal>
